@@ -1,8 +1,12 @@
 import Input from "@/components/Input";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
-const auth = () => {
+const Auth: React.FC = () => {
+  const [password, setPassword] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [variant, setvariant] = useState("Login");
   return (
     <>
       <div className='relative h-full w-full bg-[url("/images/hero.jpg")]'>
@@ -25,25 +29,34 @@ const auth = () => {
                 <Input
                   type='text'
                   id='username'
-                  onChange={() => {}}
-                  value=''
+                  onChange={(event: any) => setUsername(event.target.value)}
+                  value={username}
                   label='Username'
                 />
                 <Input
                   type='text'
                   id='email'
-                  onChange={() => {}}
-                  value=''
+                  onChange={(event: any) => setEmail(event.target.value)}
+                  value={email}
                   label='Email'
                 />
                 <Input
                   type='text'
                   id='password'
-                  onChange={() => {}}
-                  value=''
+                  onChange={(event: any) => setPassword(event.target.value)}
+                  value={password}
                   label='Password'
                 />
               </div>
+              <button className='w-full bg-red-600 hover:bg-red-700 text-white rounded-md p-3 mt-10'>
+                Login
+              </button>
+              <p className='text-neutral-500 justify-center flex mt-12'>
+                First time using Netflix?
+                <span className='text-white hover:underline cursor-pointer ml-1'>
+                  Create an account
+                </span>
+              </p>
             </div>
           </div>
         </div>
@@ -52,4 +65,4 @@ const auth = () => {
   );
 };
 
-export default auth;
+export default Auth;
