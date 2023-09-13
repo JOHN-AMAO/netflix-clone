@@ -1,12 +1,19 @@
 import Input from "@/components/Input";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 const Auth: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [variant, setvariant] = useState("Login");
+  const [variant, setvariant] = useState("login");
+
+  const toggleVariant = useCallback(() => {
+    setvariant(
+      (currentVariant) => (currentVariant = "login" ? "register" : "login")
+    );
+  }, []);
+
   return (
     <>
       <div className='relative h-full w-full bg-[url("/images/hero.jpg")]'>
@@ -23,16 +30,20 @@ const Auth: React.FC = () => {
           <div className='flex justify-center'>
             <div className='bg-black bg-opacity-80 px-16 py-16 self-center mt-2 lg:w-2/5 rounded-md w-full'>
               <h2 className='text-white text-3xl mb-8 font-semibold'>
-                Sign Up
+                {variant === "login" ? "Login" : "Register"}
               </h2>
               <div className='flex flex-col gap-4'>
-                <Input
-                  type='text'
-                  id='username'
-                  onChange={(event: any) => setUsername(event.target.value)}
-                  value={username}
-                  label='Username'
-                />
+                {variant === "login" ? (
+                  ""
+                ) : (
+                  <Input
+                    type='text'
+                    id='username'
+                    onChange={(event: any) => setUsername(event.target.value)}
+                    value={username}
+                    label='Username'
+                  />
+                )}
                 <Input
                   type='text'
                   id='email'
@@ -49,14 +60,50 @@ const Auth: React.FC = () => {
                 />
               </div>
               <button className='w-full bg-red-600 hover:bg-red-700 text-white rounded-md p-3 mt-10'>
-                Login
+                {variant === "login" ? "Login" : "Register"}
               </button>
-              <p className='text-neutral-500 justify-center flex mt-12'>
-                First time using Netflix?
-                <span className='text-white hover:underline cursor-pointer ml-1'>
-                  Create an account
-                </span>
-              </p>
+              {variant === "login" ? (
+                <p className='text-neutral-500 justify-center flex mt-12'>
+                  First time using Netflix?
+                  {variant === "login" ? (
+                    <span
+                      className='text-white hover:underline cursor-pointer ml-1'
+                      onClick={toggleVariant}
+                    >
+                      Create an account
+                    </span>
+                  ) : (
+                    <span
+                      className='text-white hover:underline cursor-pointer ml-1'
+                      onClick={() => {
+                        setvariant("login");
+                      }}
+                    >
+                      Already Signed Up? Login
+                    </span>
+                  )}
+                </p>
+              ) : (
+                <p className='text-neutral-500 justify-center flex mt-12'>
+                  {variant === "login" ? (
+                    <span
+                      className='text-white hover:underline cursor-pointer ml-1'
+                      onClick={toggleVariant}
+                    >
+                      Create an account
+                    </span>
+                  ) : (
+                    <span
+                      className='text-white hover:underline cursor-pointer ml-1'
+                      onClick={() => {
+                        setvariant("login");
+                      }}
+                    >
+                      Already Signed Up? Login
+                    </span>
+                  )}
+                </p>
+              )}
             </div>
           </div>
         </div>
