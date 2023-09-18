@@ -1,5 +1,6 @@
 import Input from "@/components/Input";
 import Image from "next/image";
+import axios from "axios";
 import React, { useState, useCallback } from "react";
 
 const Auth: React.FC = () => {
@@ -7,6 +8,14 @@ const Auth: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [variant, setvariant] = useState("login");
+
+  const register = useCallback(async () => {
+    await axios.post("/api/register", {
+      username,
+      password,
+      email,
+    });
+  }, []);
 
   const toggleVariant = useCallback(() => {
     setvariant(
