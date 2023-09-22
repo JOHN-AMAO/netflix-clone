@@ -5,17 +5,17 @@ import React, { useState, useCallback } from "react";
 
 const Auth: React.FC = () => {
   const [password, setPassword] = useState<string>("");
-  const [username, setUsername] = useState<string>("");
+  const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [variant, setvariant] = useState("login");
 
   const register = useCallback(async () => {
     await axios.post("/api/register", {
-      username,
+      name,
       password,
       email,
     });
-  }, []);
+  }, [name, password, email]);
 
   const toggleVariant = useCallback(() => {
     setvariant(
@@ -48,8 +48,8 @@ const Auth: React.FC = () => {
                   <Input
                     type='text'
                     id='username'
-                    onChange={(event: any) => setUsername(event.target.value)}
-                    value={username}
+                    onChange={(event: any) => setName(event.target.value)}
+                    value={name}
                     label='Username'
                   />
                 )}
@@ -68,7 +68,10 @@ const Auth: React.FC = () => {
                   label='Password'
                 />
               </div>
-              <button className='w-full bg-red-600 hover:bg-red-700 text-white rounded-md p-3 mt-10'>
+              <button
+                onClick={register}
+                className='w-full bg-red-600 hover:bg-red-700 text-white rounded-md p-3 mt-10'
+              >
                 {variant === "login" ? "Login" : "Register"}
               </button>
               {variant === "login" ? (
