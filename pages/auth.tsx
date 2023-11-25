@@ -82,7 +82,7 @@ const Auth: React.FC = () => {
                       className='text-white hover:underline cursor-pointer ml-1'
                       onClick={toggleVariant}
                     >
-                      Create an accoun
+                      Create an account
                     </span>
                   ) : (
                     <span
